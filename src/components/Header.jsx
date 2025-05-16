@@ -41,16 +41,16 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-xs sm:text-sm">FOLLOW US:</span>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-gray-300">
+            <a href="" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-gray-300">
               <FaFacebookF />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="hover:text-gray-300">
+            <a href="" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="hover:text-gray-300">
               <FaTwitter />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-gray-300">
+            <a href="" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-gray-300">
               <FaInstagram />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-gray-300">
+            <a href="" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-gray-300">
               <FaLinkedinIn />
             </a>
             {/* <Link to="/login" className="text-xs sm:text-sm hover:text-gray-300">
@@ -99,7 +99,7 @@ const Header = () => {
             </li>
           </ul>
           <div className="hidden md:flex items-center gap-4">
-            <Link to="/contact">
+            <Link to="/Contact">
               <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
                 CONTACT US
               </button>

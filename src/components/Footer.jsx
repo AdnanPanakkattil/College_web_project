@@ -27,13 +27,13 @@ const Footer = () => {
                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-gray-300">
                    <FaFacebookF/>
                  </a>
-                 <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="hover:text-gray-300">
+                 <a href=" " target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="hover:text-gray-300">
                    <FaTwitter/>
                  </a>
-                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-gray-300">
+                 <a href=" " target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-gray-300">
                    <FaInstagram/>
                  </a>
-                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-gray-300">
+                 <a href=" " target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-gray-300">
                    <FaLinkedinIn/>
                  </a>
 

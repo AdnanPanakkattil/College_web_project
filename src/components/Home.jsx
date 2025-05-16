@@ -184,7 +184,7 @@ const Home = () => {
             Our Consultancy
           </div>
           <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+            <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
               <div className="bg-white h-[220px] sm:h-[260px] md:h-[280px] lg:h-[300px] rounded-lg shadow-lg p-4 sm:p-5 md:p-6 text-center transition duration-300 hover:border-2 hover:border-blue-500">
                 <BriefcaseIcon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-blue-500 mx-auto mb-2 sm:mb-3" />
                 <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 mb-2 sm:mb-3 md:mb-4">
@@ -196,8 +196,7 @@ const Home = () => {
                   help them identify their <br />
                   interests, aptitudes, and <br />
                   career goals, guiding them <br />
-                  towards paths that align with <br />
-                  their aspirations.
+                  towards .
                 </p>
               </div>
               <div className="bg-white h-[220px] sm:h-[260px] md:h-[280px] lg:h-[300px] rounded-lg shadow-lg p-4 sm:p-5 md:p-6 text-center transition duration-300 hover:border-2 hover:border-blue-500">
