@@ -65,7 +65,7 @@ const Header = () => {
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2">
-              <span className="text-2xl sm:text-3xl font-bold text-gray-800">LOGO</span>
+              <span className="text-2xl sm:text-3xl font-bold text-gray-800">College</span>
             </Link>
           </div>
           <div className="md:hidden">
