@@ -54,7 +54,7 @@ const Contact = () => {
             </Form.Item>
 
             <Form.Item name="courses" label="Courses" rules={[{ required: true, message: "Please select a courses" }]} className="col-span-1" >
-            <Select placeholder="Select a college" onChange={handleCollegeChange}>
+              <Select placeholder="Select a Courses" onChange={handleCollegeChange}>
                 {Object.keys(collegeCourses).map((college) => (
                   <Option key={college} value={college}>
                     {college}
