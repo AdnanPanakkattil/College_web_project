@@ -279,38 +279,20 @@ const Home = () => {
                 </div>
               </div>
             </div>
+
             <div className="md:w-1/2 mt-8 md:mt-0 grid grid-cols-2 gap-4 sm:gap-6 pl-0 sm:pl-4 md:pl-6">
-              <img
-                src={OIP1}
-                alt="Students studying together"
-                className="rounded-2xl h-36 sm:h-40 md:h-44 w-full object-cover aspect-square shadow-md"
-                loading="lazy"
-              />
-              <img
-                src={OIP2}
-                alt="Students working on a project"
-                className="rounded-2xl h-36 sm:h-40 md:h-44 w-full object-cover aspect-square shadow-md"
-                loading="lazy"
-              />
-              <img
-                src={OIP3}
-                alt="Student with a dog"
-                className="rounded-2xl h-36 sm:h-40 md:h-44 w-full object-cover aspect-square shadow-md"
-                loading="lazy"
-              />
-              <img
-                src={OIP4}
-                alt="Student with a camera setup"
-                className="rounded-2xl h-36 sm:h-40 md:h-44 w-full object-cover aspect-square shadow-md"
-                loading="lazy"
-              />
+              <img src={OIP1} alt="Students studying together" className="rounded-2xl h-36 sm:h-40 md:h-44 w-full object-cover aspect-square shadow-md" loading="lazy"/>
+              <img src={OIP2} alt="Students working on a project" className="rounded-2xl h-36 sm:h-40 md:h-44 w-full object-cover aspect-square shadow-md" loading="lazy"/>
+              <img src={OIP3} alt="Student with a dog" className="rounded-2xl h-36 sm:h-40 md:h-44 w-full object-cover aspect-square shadow-md" loading="lazy"/>
+              <img src={OIP4} alt="Student with a camera setup" className="rounded-2xl h-36 sm:h-40 md:h-44 w-full object-cover aspect-square shadow-md" loading="lazy"/>
             </div>
           </div>
         </div>
       </div>
 
       
-        {/* Consultancy Section - Automatic Sliding Carousel */}
+{/* Consultancy Section - Automatic Sliding Carousel */}
+
         <div className="w-full py-6 sm:py-8 md:py-12 lg:py-16">
           <div className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8 md:mb-10 lg:mb-12">
            What our students say
@@ -318,6 +300,7 @@ const Home = () => {
           <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
             <Slide {...carouselProperties}>
               {consultancyCards.map((card, index) => (
+                
                 <div
                   key={index}
                   className="px-2 sm:px-3 md:px-4"

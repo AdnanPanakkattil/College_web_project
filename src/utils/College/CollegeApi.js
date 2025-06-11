@@ -6,5 +6,5 @@ export const getCollegeData = () => {
 }
 
 export const CreategetCollegeData = (data)=>{
-    return ApiClient.post('UniversityApi/')
+    return ApiClient.post('CollegeApi/')
 }

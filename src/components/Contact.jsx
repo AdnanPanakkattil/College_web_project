@@ -1,73 +1,137 @@
-import React, { useState } from 'react';
-import { Input, Form, Select, Button } from "antd";
-
-const { Option } = Select;
-
-const collegeCourses = {
-
-};
+import React from 'react';
+import { useQuery } from 'react-query';
+import { Form, Input, Button, Row, Col, Select, message } from 'antd';
+import { useCreateContact } from '../utils/Contact/hooks';
+import { getCollegeData } from '../utils/College/CollegeApi';
+import { getCoursesData } from '../utils/Courses/coursesApi';
 
 const Contact = () => {
-  const [selectedCollege, setSelectedCollege] = useState("");
-
-  const handleCollegeChange = (value) => {
-    setSelectedCollege(value);
-  };
+  const [form] = Form.useForm();
+  const { mutate: Create, isLoading: isSubmitting } = useCreateContact();
+  const { data: Collegedata, isLoading: CollegeLoading } = useQuery('getCollegeFroProduction', getCollegeData);
+  const { data: Coursesdata, isLoading: CoursesLoading } = useQuery('getCoursesFroProduction', getCoursesData);
 
   const onFinish = (values) => {
-    console.log("Form Submitted:", values);
-    // You could also send this to a backend or store it elsewhere
+    Create(values, {
+      onSuccess() {
+        message.success('Created successfully');
+        form.resetFields();
+      },
+      onError(err) {
+        console.error('Error creating appointment:', err);
+        message.error('Error');
+      },
+    });
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl bg-white shadow-lg rounded-2xl p-6 sm:p-10">
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Registration Form</h2>
-        <Form layout="vertical" onFinish={onFinish}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            <Form.Item name="name" label="Name" rules={[{ required: true, message: "Please enter your name" }]} className="col-span-1">
-              <Input placeholder="Enter your name" />
-            </Form.Item>
-
-            <Form.Item name="age" label="Age" rules={[{ required: true, message: "Please enter your age" }]} className="col-span-1">
-              <Input type="number" placeholder="Enter your age" />
-            </Form.Item>
-
-            <Form.Item name="phone" label="Phone Number" rules={[ { required: true, message: "Please enter your phone number" }, { pattern: /^\d{10}$/, message: "Phone number must be 10 digits" }, ]} className="col-span-1 md:col-span-2">
-              <Input placeholder="Enter phone number" />
-            </Form.Item>
-
-            <Form.Item
-              name="college"
-              label="College"
-              rules={[{ required: true, message: "Please select a college" }]}
-              className="col-span-1"
-            >
-              <Select placeholder="Select a college" onChange={handleCollegeChange}>
-                {Object.keys(collegeCourses).map((college) => (
-                  <Option key={college} value={college}>
-                    {college}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-
-            <Form.Item name="courses" label="Courses" rules={[{ required: true, message: "Please select a courses" }]} className="col-span-1" >
-              <Select placeholder="Select a Courses" onChange={handleCollegeChange}>
-                {Object.keys(collegeCourses).map((college) => (
-                  <Option key={college} value={college}>
-                    {college}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </div>
-
-          <Form.Item className="mt-6">
-            <Button type="primary" htmlType="submit" className="w-full">
-              Submit
-            </Button>
+    <div className="w-full bg-gray-50 py-8">
+      <div className="relative w-full max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <Form
+          layout="vertical"
+          onFinish={onFinish}
+          form={form}
+          className="bg-white p-6 rounded-lg shadow-lg"
+        >
+          <h2 className="text-xl sm:text-2xl font-semibold text-center mb-6">Contact Form</h2>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Name"
+                name="Name"
+                rules={[{ required: true, message: 'Please enter Name' }]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Age"
+                name="Age"
+                rules={[
+                  { required: true, message: 'Please enter Age' },
+                  { pattern: /^[0-9]+$/, message: 'Age must be a number' },
+                  {
+                    validator: (_, value) =>
+                      value >= 1 && value <= 120
+                        ? Promise.resolve()
+                        : Promise.reject('Age must be between 1 and 120'),
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Mobile Number"
+                name="Phone_number"
+                rules={[
+                  { required: true, message: 'Please enter Mobile Number' },
+                  { pattern: /^[0-9]{10}$/, message: 'Mobile number must be 10 digits' },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="College name"
+                name="College_name"
+                rules={[{ required: true, message: 'Please select College name' }]}
+              >
+                <Select
+                  placeholder="Select College name"
+                  options={
+                    CollegeLoading
+                      ? []
+                      : Collegedata?.data?.map((it) => ({
+                          value: it.id,
+                          label: it.College_name,
+                        }))
+                  }
+                  allowClear
+                  loading={CollegeLoading}
+                />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Courses name"
+                name="courses_name"
+                rules={[{ required: true, message: 'Please select courses name' }]}
+              >
+                <Select
+                  placeholder="Select courses name"
+                  options={
+                    CoursesLoading
+                      ? []
+                      : Coursesdata?.data?.map((it) => ({
+                          value: it.id,
+                          label: it.courses_name,
+                        }))
+                  }
+                  allowClear
+                  loading={CoursesLoading}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item>
+            <div className="text-center">
+              <Button
+                htmlType="submit"
+                className="w-full max-w-xs"
+                type="primary"
+                loading={isSubmitting}
+              >
+                Submit
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </div>
