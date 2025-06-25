@@ -1,15 +1,30 @@
+// University.jsx (Client-side filtering)
 import React from 'react';
 import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 import { getUniversityData } from '../utils/UniversityApi/UniversityApi';
 
 const University = () => {
-  const { data, isLoading, isError } = useQuery('getUniversity', getUniversityData);
+  const [searchParams] = useSearchParams();
+  const courseId = searchParams.get('courseId');
+
+  const { data, isLoading, isError } = useQuery('getUniversity', () => getUniversityData());
+
+  // Filter universities client-side if courseId is provided
+  const filteredData = courseId
+    ? {
+        ...data,
+        data: data?.data?.filter((university) =>
+          university.courses?.includes(courseId) // Assuming university.courses is an array of course IDs
+        ),
+      }
+    : data;
 
   return (
     <div className="bg-white py-8 sm:py-12 md:py-16">
       <div className="text-center py-8 sm:py-12 md:py-16">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-          Universities
+          {courseId ? 'Universities Offering Selected Course' : 'Universities'}
         </h1>
       </div>
 
@@ -20,8 +35,11 @@ const University = () => {
         {isError && (
           <div className="text-center text-red-500">Error loading universities</div>
         )}
+        {filteredData?.data?.length === 0 && !isLoading && !isError && (
+          <div className="text-center text-gray-600">No universities found for this course.</div>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
-          {data?.data?.map((doc) => (
+          {filteredData?.data?.map((doc) => (
             <div
               key={doc.id}
               className="relative group mb-6 sm:mb-8 transition-transform duration-300 hover:scale-105"
@@ -47,6 +65,3 @@ const University = () => {
 };
 
 export default University;
-
-
-

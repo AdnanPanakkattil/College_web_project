@@ -15,7 +15,6 @@ import CoursesPage from './pages/CoursesPage.jsx'
 const router = createBrowserRouter([
 
 
-  
   {
     path:'/',
     element:<App/>,
@@ -38,14 +37,13 @@ const router = createBrowserRouter([
         element:<ContactPage/>
       },
       {
-        path:'/universityPage',
+        path:'/universityPage/:id',
         element:<UniversityPage/>
       },
       {
         path:'/Courses',
         element:<CoursesPage/>
       },
-
 
 
     ]
