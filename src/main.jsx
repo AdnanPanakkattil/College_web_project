@@ -10,6 +10,7 @@ import ServicesPage from './pages/ServicesPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import UniversityPage from './pages/universityPage.jsx'
 import CoursesPage from './pages/CoursesPage.jsx'
+import Collegepages from './pages/Collegepages.jsx'
 
 
 const router = createBrowserRouter([
@@ -43,6 +44,13 @@ const router = createBrowserRouter([
       {
         path:'/Courses',
         element:<CoursesPage/>
+      },
+      
+      {
+      
+        path:'/Colleges/:id',
+        element:<Collegepages/>
+      
       },
 
 

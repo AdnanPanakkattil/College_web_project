@@ -1,67 +1,81 @@
-// University.jsx (Client-side filtering)
-import React from 'react';
+import { useParams } from 'react-router-dom';
+import { Button, Card, Spin } from 'antd';
 import { useQuery } from 'react-query';
-import { useSearchParams } from 'react-router-dom';
-import { getUniversityData } from '../utils/UniversityApi/UniversityApi';
+import { getUniversityCoursesData } from '../utils/UniversityCourses/UniversityCoursesApi';
+import { Link, } from "react-router-dom";
+const { Meta } = Card;
 
-const University = () => {
-  const [searchParams] = useSearchParams();
-  const courseId = searchParams.get('courseId');
+function University() {
+  const { id } = useParams();
+  const { data, isLoading, isError } = useQuery(
+    ['getUniversityCourses', id], 
+    () => getUniversityCoursesData(id),
+    {
+      enabled: !!id, 
+    }
+  );
 
-  const { data, isLoading, isError } = useQuery('getUniversity', () => getUniversityData());
+  const university = id && data?.data?.filter((doc) => doc.courseid?.id?.toString() === id);
+  console.log({university});
+  
 
-  // Filter universities client-side if courseId is provided
-  const filteredData = courseId
-    ? {
-        ...data,
-        data: data?.data?.filter((university) =>
-          university.courses?.includes(courseId) // Assuming university.courses is an array of course IDs
-        ),
-      }
-    : data;
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <div style={{ textAlign: 'center', padding: '20px' }}>Error loading university data</div>;
+  }
+
+  if (id && !university) {
+    return <div style={{ textAlign: 'center', padding: '20px' }}>University not found</div>;
+  }
 
   return (
-    <div className="bg-white py-8 sm:py-12 md:py-16">
-      <div className="text-center py-8 sm:py-12 md:py-16">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-          {courseId ? 'Universities Offering Selected Course' : 'Universities'}
-        </h1>
-      </div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '20px' }}>
+      {id && university.length > 0 ? university.map((it)=>(
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {isLoading && (
-          <div className="text-center text-gray-600">Loading universities...</div>
-        )}
-        {isError && (
-          <div className="text-center text-red-500">Error loading universities</div>
-        )}
-        {filteredData?.data?.length === 0 && !isLoading && !isError && (
-          <div className="text-center text-gray-600">No universities found for this course.</div>
-        )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
-          {filteredData?.data?.map((doc) => (
-            <div
-              key={doc.id}
-              className="relative group mb-6 sm:mb-8 transition-transform duration-300 hover:scale-105"
-            >
-              <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
-                <img
-                  src={`http://localhost:8000${doc.image}`}
-                  alt={`${doc.University_name} image`}
-                  className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-90"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <p className="text-center mt-4 font-semibold text-sm sm:text-base md:text-lg text-gray-800 line-clamp-2">
-                {doc.University_name}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
+        <Card
+          hoverable
+          style={{
+            width: '100%',
+            maxWidth: '400px', 
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          }}
+          cover={
+            
+            <Link to={`/Colleges/${it.University_id.id}`}>
+            <img
+              alt={it.University_id.University_name || 'University Image'}
+              src={it.University_id.image ? `http://localhost:8000${it.University_id.image}` : '/images/placeholder.jpg'}
+              style={{
+                width: '100%',
+                aspectRatio: '4/3',
+                objectFit: 'cover',
+                display: 'block',
+              }}
+              onError={(e) => (e.target.src = '/images/placeholder.jpg')}
+            />
+            </Link>
+          }
+        >
+      
+            <Link to={`/Colleges/${it.University_id.id}`} className="hover:text-blue-600">
+             <Meta
+                title={it.University_id.University_name }
+              />
+              </Link>
+        </Card>
+      )) 
+       : (
+        <div style={{ textAlign: 'center' }}>No university selected</div>
+      )}
     </div>
   );
-};
+}
 
 export default University;

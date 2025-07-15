@@ -4,6 +4,8 @@ import { FaBars, FaTimes, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaC
 import { useQuery } from "react-query";
 import { getCoursesData } from "../utils/Courses/coursesApi";
 
+
+
 // Mock contact info
 const contactInfo = {
   phone: "+1 111 (564) 568 25",
@@ -41,8 +43,6 @@ const flattenCourses = (data) => {
   return courses;
   
 };
-
-
 
 const Header = () => {
   const [open, setOpen] = useState(false);
