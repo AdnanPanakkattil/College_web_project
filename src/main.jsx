@@ -12,18 +12,18 @@ import UniversityPage from './pages/universityPage.jsx'
 import CoursesPage from './pages/CoursesPage.jsx'
 import Collegepages from './pages/Collegepages.jsx'
 
-
 const router = createBrowserRouter([
-
 
   {
     path:'/',
     element:<App/>,
     children:[
+
       {
         path:'/',
         element:<HomePage/>
       },
+
       {
         path:'/about',
         element:<AboutPage/>
@@ -33,27 +33,27 @@ const router = createBrowserRouter([
         path:'/Services',
         element:<ServicesPage/>
       },
+
       {
         path:'/Contact',
         element:<ContactPage/>
       },
+
       {
         path:'/universityPage/:id',
         element:<UniversityPage/>
       },
+
       {
         path:'/Courses',
         element:<CoursesPage/>
       },
       
       {
-      
         path:'/Colleges/:id',
         element:<Collegepages/>
       
       },
-
-
     ]
   }
 ])

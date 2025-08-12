@@ -6,7 +6,7 @@ const UniversityPage = () => {
   return (
     <div>
       <Header/>
-        <University/>
+      <University/>
     </div>
   )
 }
